@@ -29,6 +29,6 @@ var Comment    = require("./Models/comment.js");
 //Routes
 app.use(routes);
 
-app.listen(3000,function(){
+app.listen(process.env.PORT, function(){
     console.log("Server has started!");
 });
