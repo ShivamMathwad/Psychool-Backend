@@ -4,11 +4,10 @@ var router = express.Router();
 //Schema Setup
 var Ocean = require("./Models/ocean_questions.js");
 
-
+//Routes
 router.get("/", function(req,res){
     res.send("<b>Psychool Backend</b>");
 });
-
 
 router.get("/getQuestions", function(req,res){
     
@@ -18,7 +17,7 @@ router.get("/getQuestions", function(req,res){
         } else {
            allQuestions.sort((obj1,obj2)=> obj1.id-obj2.id);
            
-           let UpdateQuestionsArray=[];
+           let UpdateObjectsArray=[];
            for(let question in allQuestions){
                let obj = {
                    id: allQuestions[question].id,
@@ -26,15 +25,14 @@ router.get("/getQuestions", function(req,res){
                    type: allQuestions[question].type,
                    reverse: allQuestions[question].reverse
                }
-               UpdateQuestionsArray.push(obj);
+               UpdateObjectsArray.push(obj);
            }
-
-           console.log("Sending back questions");
            
-           res.send(UpdateQuestionsArray);
+           res.send(UpdateObjectsArray);
         }
     });
     
 });
+
 
 module.exports = router;

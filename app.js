@@ -19,16 +19,13 @@ mongoose.connect("mongodb+srv://shivammad:shivam25@cluster0-5zsao.mongodb.net/ps
 app.use(bodyParser.urlencoded({extended:true}) );
 app.use(methodOverride("_method"));
 
-/*
-//Schema Setup
-var User       = require("./Models/user.js");
-var Campground = require("./Models/campground.js");
-var Comment    = require("./Models/comment.js");
-*/
-
 //Routes
 app.use(routes);
 
-app.listen(process.env.PORT, function(){
+let port = process.env.PORT;
+if(port == null || port == ""){
+    port = 3000;
+}
+app.listen(port, function(){
     console.log("Server has started!");
 });
