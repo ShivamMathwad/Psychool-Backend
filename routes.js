@@ -6,7 +6,6 @@ var Ocean = require("./Models/ocean_questions.js");
 var array = [];
 
 router.get("/getQuestions", function(req,res){
-    console.log("Requested Questions");
     
     Ocean.find({}, function(err,allQuestions){
         if(err){
@@ -30,8 +29,7 @@ router.get("/getQuestions", function(req,res){
                UpdateQuestionsArray.push(obj);
            }
 
-           console.log("Sending bacl kquestions");
-           
+           console.log("Sending back questions");
            
            res.send(UpdateQuestionsArray);
         }
