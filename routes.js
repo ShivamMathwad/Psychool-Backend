@@ -31,7 +31,7 @@ router.post("/signup", function(req,res){
         } else {
             if(foundEntry == null){
                 //Means username is not already present in db, so now we can add our entry
-                User.insertOne(user, function(err,createdUser){
+                User.create(user, function(err,createdUser){
                     if(err){
                         console.log(err);
                     } else {
