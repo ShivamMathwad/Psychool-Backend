@@ -27,23 +27,26 @@ router.post("/signup", function(req,res){
 
     User.findOne({username:req.body.username},function(err,foundEntry){
         if(err){
-            //Means username is not already present in db, so now we can add our entry
-            User.insertOne(user, function(err,createdUser){
-                if(err){
-                    console.log(err);
-                } else {
-                    console.log("Success");
-                    status.status = "Success";
-                    status.id = String(createdUser._id);
-                    res.send(status);
-                }
-            });
-        }
-        else{
-            console.log("Found entry");
-            console.log(foundEntry);
-            status.status = "Username already exists";
-            res.send(status);
+            console.log(err);
+        } else {
+            if(foundEntry == null){
+                //Means username is not already present in db, so now we can add our entry
+                User.insertOne(user, function(err,createdUser){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log("Success");
+                        status.status = "Success";
+                        status.id = String(createdUser._id);
+                        res.send(status);
+                    }
+                });
+            } else {
+                console.log("Found entry");
+                console.log(foundEntry);
+                status.status = "Username already exists";
+                res.send(status);
+            }
         }
     });
 });
