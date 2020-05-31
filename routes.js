@@ -12,6 +12,7 @@ router.get("/", function(req,res){
 
 //Handles signup logic
 router.post("/signup", function(req,res){
+    console.log("inside signup");
     var user = {
         "username":req.body.username,
         "password":req.body.password,
@@ -31,6 +32,7 @@ router.post("/signup", function(req,res){
                 if(err){
                     console.log(err);
                 } else {
+                    console.log("Success");
                     status.status = "Success";
                     status.id = String(createdUser._id);
                     res.send(status);
@@ -38,6 +40,8 @@ router.post("/signup", function(req,res){
             });
         }
         else{
+            console.log("Found entry");
+            console.log(foundEntry);
             status.status = "Username already exists";
             res.send(status);
         }
