@@ -13,8 +13,8 @@ router.get("/", function(req,res){
 //Handles signup logic
 router.post("/signup", function(req,res){
     console.log("inside signup");
-    let user = req.body.username;
-    console.log("Got username = "+user);
+    let user2 = req.body.username;
+    console.log("Got username = "+user2);
     
     console.log(req.body);
     var user = {
