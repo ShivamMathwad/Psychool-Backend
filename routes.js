@@ -12,26 +12,22 @@ router.get("/", function(req,res){
 
 //Handles signup logic
 router.post("/signup", function(req,res){
-    console.log("inside signup");
-    let user2 = req.body.username;
-    console.log("Got username = "+user2);
-    
-    console.log(req.body);
     var user = {
-        "username":req.body.username,
-        "password":req.body.password,
-        "ocean_result":[],
-        "aptitude_result":[]
+        username:req.body.username,
+        password:req.body.password,
+        ocean_result:[],
+        aptitude_result:[]
     };
     var status = {
-        "status":"",
-        "username":req.body.username,
-        "id":""
+        status:"",
+        username:req.body.username,
+        id:""
     };
 
     User.findOne({username:req.body.username},function(err,foundEntry){
         if(err){
             console.log(err);
+            res.send(status);
         } else {
             if(foundEntry == null){
                 //Means username is not already present in db, so now we can add our entry
@@ -39,16 +35,40 @@ router.post("/signup", function(req,res){
                     if(err){
                         console.log(err);
                     } else {
-                        console.log("Success");
                         status.status = "Success";
                         status.id = String(createdUser._id);
                         res.send(status);
                     }
                 });
             } else {
-                console.log("Found entry");
-                console.log(foundEntry);
+                //Means username is already present in DB, so user has to put in a different username
                 status.status = "Username already exists";
+                res.send(status);
+            }
+        }
+    });
+});
+
+//Handles login logic
+router.post("/login", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOne({username:req.body.username, password:req.body.password},function(err,foundEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            if(foundEntry == null){
+                //Means account doesn't exist or one of username or password is invalid
+                status.status = "Invalid details";
+                res.send(status);
+            } else {
+                status.status = "Success";
+                status.id = String(foundEntry._id);
                 res.send(status);
             }
         }
