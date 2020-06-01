@@ -16,7 +16,7 @@ mongoose.connect("mongodb+srv://shivammad:shivam25@cluster0-5zsao.mongodb.net/ps
     }
 }); 
 
-app.use(bodyParser.urlencoded({extended:true}) );
+app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 //Routes
