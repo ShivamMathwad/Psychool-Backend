@@ -123,7 +123,6 @@ router.post("/storeOceanResult", function(req,res){
 
 //Get Ocean results from DB
 router.post("/getOceanResult", function(req,res){
-    var emptyObject = {};
     const noTestResult = {
         o_result: 0,
         c_result: 0,
@@ -137,7 +136,7 @@ router.post("/getOceanResult", function(req,res){
             console.log(err);
             res.send(noTestResult);
         } else {
-            if(foundEntry.ocean_result === emptyObject){
+            if(Object.keys(foundEntry.ocean_result).length === 0 ){
                 //Means user has not given the test
                 console.log("In null");
                 console.log(foundEntry.ocean_result);
