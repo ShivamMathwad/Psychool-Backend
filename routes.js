@@ -129,7 +129,7 @@ router.post("/getOceanResult", function(req,res){
         e_result: 0,
         a_result: 0,
         n_result: 0
-    };
+    };    
 
     User.findOne({username: req.body.username}, function(err,foundEntry){
         if(err){
