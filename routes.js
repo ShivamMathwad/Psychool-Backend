@@ -15,8 +15,8 @@ router.post("/signup", function(req,res){
     var user = {
         username:req.body.username,
         password:req.body.password,
-        ocean_result:{},
-        aptitude_result:{}
+        ocean_result={},
+        aptitude_result={}
     };
     var status = {
         status:"",
