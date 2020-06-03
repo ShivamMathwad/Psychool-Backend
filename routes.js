@@ -122,10 +122,15 @@ router.post("/storeOceanResult", function(req,res){
 //Get Ocean results from DB
 router.post("/getOceanResult", function(req,res){
     User.findOne({username: req.body.username}, function(err,foundEntry){
+        console.log("inside findOne");
         if(err){
             console.log(err);
             res.send(foundEntry.ocean_result);
+            console.log("In error");
+            console.log(foundEntry.ocean_result);
         } else {
+            console.log("In ELSE");
+            console.log(foundEntry.ocean_result);
             res.send(foundEntry.ocean_result);
         }
     });
