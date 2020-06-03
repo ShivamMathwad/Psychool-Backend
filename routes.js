@@ -12,12 +12,9 @@ router.get("/", function(req,res){
 
 //Handles signup logic
 router.post("/signup", function(req,res){
-    var emptyObject = {};
     var user = {
         username:req.body.username,
         password:req.body.password,
-        ocean_result: emptyObject,
-        aptitude_result: emptyObject
     };
     var status = {
         status:"",
