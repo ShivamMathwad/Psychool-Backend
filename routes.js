@@ -144,6 +144,8 @@ router.post("/getOceanResult", function(req,res){
             } else {
                 //User has given the test
                 console.log("In success");
+                console.log(foundEntry.ocean_result);
+                console.log(foundEntry);
                 res.send(foundEntry.ocean_result);
             }
         }
