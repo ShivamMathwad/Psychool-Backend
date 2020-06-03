@@ -123,17 +123,26 @@ router.post("/storeOceanResult", function(req,res){
 
 //Get Ocean results from DB
 router.post("/getOceanResult", function(req,res){
+    const noTestResult = {
+        o_result: 0,
+        c_result: 0,
+        e_result: 0,
+        a_result: 0,
+        n_result: 0
+    };
+
     User.findOne({username: req.body.username}, function(err,foundEntry){
-        console.log("inside findOne");
         if(err){
             console.log(err);
-            res.send(foundEntry.ocean_result);
-            console.log("In error");
-            console.log(foundEntry.ocean_result);
+            res.send(noTestResult);
         } else {
-            console.log("In ELSE");
-            console.log(foundEntry.ocean_result);
-            res.send(foundEntry.ocean_result);
+            if(foundEntry.ocean_result == null){
+                //Means user has not given the test
+                res.send(noTestResult);
+            } else {
+                //User has given the test
+                res.send(foundEntry.ocean_result);
+            }
         }
     });
 });
