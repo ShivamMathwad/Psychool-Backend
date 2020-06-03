@@ -15,8 +15,8 @@ router.post("/signup", function(req,res){
     var user = {
         username:req.body.username,
         password:req.body.password,
-        ocean_result:[],
-        aptitude_result:[]
+        ocean_result:{},
+        aptitude_result:{}
     };
     var status = {
         status:"",
@@ -101,5 +101,24 @@ router.get("/getQuestions", function(req,res){
     
 });
 
+//Store Ocean results in DB
+router.post("/storeOceanResult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {ocean_result: req.body.ocean_result}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
 
 module.exports = router;
