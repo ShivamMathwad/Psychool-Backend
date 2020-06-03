@@ -119,4 +119,17 @@ router.post("/storeOceanResult", function(req,res){
     });
 });
 
+//Get Ocean results from DB
+router.post("/getOceanResult", function(req,res){
+    User.findOne({username: req.body.username}, function(err,foundEntry){
+        if(err){
+            console.log(err);
+            res.send(foundEntry.ocean_result);
+        } else {
+            res.send(foundEntry.ocean_result);
+        }
+    });
+});
+
+
 module.exports = router;
