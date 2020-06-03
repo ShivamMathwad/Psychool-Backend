@@ -136,7 +136,7 @@ router.post("/getOceanResult", function(req,res){
             console.log(err);
             res.send(noTestResult);
         } else {
-            if(foundEntry.ocean_result == null){
+            if(foundEntry.ocean_result == {}){
                 //Means user has not given the test
                 console.log("In null");
                 console.log(foundEntry.ocean_result);
