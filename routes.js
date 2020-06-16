@@ -2,8 +2,10 @@ var express = require("express");
 var router = express.Router();
 
 //Schema Setup
-var OceanQuestions = require("./Models/ocean_questions.js");
-var User = require("./Models/users.js");
+var OceanQuestions    = require("./Models/ocean_questions.js");
+var User              = require("./Models/users.js");
+var AptitudeQuestions = require("./Models/apti_questions.js");
+
 
 //Routes
 router.get("/", function(req,res){
@@ -75,6 +77,64 @@ router.post("/login", function(req,res){
     });
 });
 
+//Get NA Aptitude questions from DB
+router.get("/getNAQuestions", function(req,res){
+
+    AptitudeQuestions.find({type: "NA"}, function(err,allNAQuestions){
+        if(err){
+            console.log(err);
+        } else {
+            allNAQuestions.sort((obj1,obj2)=> obj1.id-obj2.id);
+
+            let UpdateObjectsArray=[];
+            for(let question in allNAQuestions){
+                let obj = {
+                    id: question.id,
+                    question: question.question,
+                    optionA: question.optionA,
+                    optionB: question.optionB,
+                    optionC: question.optionC,
+                    optionD: question.optionD,
+                    correctOption: question.correctOption,
+                    type: question.type
+                };
+                UpdateObjectsArray.push(obj);
+            } 
+            res.send(UpdateObjectsArray);
+        }
+    });
+
+});
+
+//Get PA Aptitude questions from DB
+router.get("/getPAQuestions", function(req,res){
+
+    AptitudeQuestions.find({type: "PA"}, function(err,allPAQuestions){
+        if(err){
+            console.log(err);
+        } else {
+            allPAQuestions.sort((obj1,obj2)=> obj1.id-obj2.id);
+
+            let UpdateObjectsArray=[];
+            for(let question in allPAQuestions){
+                let obj = {
+                    id: question.id,
+                    question: question.question,
+                    optionA: question.optionA,
+                    optionB: question.optionB,
+                    optionC: question.optionC,
+                    optionD: question.optionD,
+                    correctOption: question.correctOption,
+                    type: question.type
+                };
+                UpdateObjectsArray.push(obj);
+            } 
+            res.send(UpdateObjectsArray);
+        }
+    });
+
+});
+
 //Get Personality questions from DB
 router.get("/getQuestions", function(req,res){
     
@@ -91,10 +151,9 @@ router.get("/getQuestions", function(req,res){
                    question: allQuestions[question].question,
                    type: allQuestions[question].type,
                    reverse: allQuestions[question].reverse
-               }
+               };
                UpdateObjectsArray.push(obj);
            }
-           
            res.send(UpdateObjectsArray);
         }
     });
