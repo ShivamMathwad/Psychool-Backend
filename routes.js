@@ -89,14 +89,14 @@ router.get("/getNAQuestions", function(req,res){
             let UpdateObjectsArray=[];
             for(let question in allNAQuestions){
                 let obj = {
-                    id: question.id,
-                    question: question.question,
-                    optionA: question.optionA,
-                    optionB: question.optionB,
-                    optionC: question.optionC,
-                    optionD: question.optionD,
-                    correctOption: question.correctOption,
-                    type: question.type
+                    id: allNAQuestions[question].id,
+                    question: allNAQuestions[question].question,
+                    optionA: allNAQuestions[question].optionA,
+                    optionB: allNAQuestions[question].optionB,
+                    optionC: allNAQuestions[question].optionC,
+                    optionD: allNAQuestions[question].optionD,
+                    correctOption: allNAQuestions[question].correctOption,
+                    type: allNAQuestions[question].type
                 };
                 UpdateObjectsArray.push(obj);
             } 
@@ -118,14 +118,14 @@ router.get("/getPAQuestions", function(req,res){
             let UpdateObjectsArray=[];
             for(let question in allPAQuestions){
                 let obj = {
-                    id: question.id,
-                    question: question.question,
-                    optionA: question.optionA,
-                    optionB: question.optionB,
-                    optionC: question.optionC,
-                    optionD: question.optionD,
-                    correctOption: question.correctOption,
-                    type: question.type
+                    id: allPAQuestions[question].id,
+                    question: allPAQuestions[question].question,
+                    optionA: allPAQuestions[question].optionA,
+                    optionB: allPAQuestions[question].optionB,
+                    optionC: allPAQuestions[question].optionC,
+                    optionD: allPAQuestions[question].optionD,
+                    correctOption: allPAQuestions[question].correctOption,
+                    type: allPAQuestions[question].type
                 };
                 UpdateObjectsArray.push(obj);
             } 
