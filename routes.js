@@ -12,6 +12,7 @@ router.get("/", function(req,res){
     res.send("<b>Psychool Backend</b>");
 });
 
+
 //Handles signup logic
 router.post("/signup", function(req,res){
     var user = {
@@ -51,6 +52,7 @@ router.post("/signup", function(req,res){
     });
 });
 
+
 //Handles login logic
 router.post("/login", function(req,res){
     var status = {
@@ -76,6 +78,7 @@ router.post("/login", function(req,res){
         }
     });
 });
+
 
 //Get NA Aptitude questions from DB
 router.get("/getNAQuestions", function(req,res){
@@ -106,6 +109,7 @@ router.get("/getNAQuestions", function(req,res){
 
 });
 
+
 //Get PA Aptitude questions from DB
 router.get("/getPAQuestions", function(req,res){
 
@@ -135,6 +139,25 @@ router.get("/getPAQuestions", function(req,res){
 
 });
 
+router.post("/storeNA_or_PA", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {aptitude_result: req.body.aptitude_result}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
+
 //Get Personality questions from DB
 router.get("/getQuestions", function(req,res){
     
@@ -160,6 +183,7 @@ router.get("/getQuestions", function(req,res){
     
 });
 
+
 //Store Ocean results in DB
 router.post("/storeOceanResult", function(req,res){
     var status = {
@@ -179,6 +203,7 @@ router.post("/storeOceanResult", function(req,res){
         }
     });
 });
+
 
 //Get Ocean results from DB
 router.post("/getOceanResult", function(req,res){
