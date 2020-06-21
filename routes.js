@@ -139,25 +139,6 @@ router.get("/getPAQuestions", function(req,res){
 
 });
 
-router.post("/storeNA_or_PA", function(req,res){
-    var status = {
-        status:"",
-        username: req.body.username,
-        id:""
-    };
-
-    User.findOneAndUpdate({username: req.body.username}, {aptitude_result: req.body.aptitude_result}, function(err,updatedEntry){
-        if(err){
-            console.log(err);
-            res.send(status);
-        } else {
-            status.status = "Success";
-            status.id = String(updatedEntry._id);
-            res.send(status);
-        }
-    });
-});
-
 //Get Personality questions from DB
 router.get("/getQuestions", function(req,res){
     
