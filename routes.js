@@ -139,6 +139,35 @@ router.get("/getPAQuestions", function(req,res){
 
 });
 
+//Get VR Aptitude questions from DB
+router.get("/getVRQuestions", function(req,res){
+
+    AptitudeQuestions.find({type: "VR"}, function(err,allVRQuestions){
+        if(err){
+            console.log(err);
+        } else {
+            allVRQuestions.sort((obj1,obj2)=> obj1.id-obj2.id);
+
+            let UpdateObjectsArray=[];
+            for(let question in allVRQuestions){
+                let obj = {
+                    id: allVRQuestions[question].id,
+                    question: allVRQuestions[question].question,
+                    optionA: allVRQuestions[question].optionA,
+                    optionB: allVRQuestions[question].optionB,
+                    optionC: allVRQuestions[question].optionC,
+                    optionD: allVRQuestions[question].optionD,
+                    correctOption: allVRQuestions[question].correctOption,
+                    type: allVRQuestions[question].type
+                };
+                UpdateObjectsArray.push(obj);
+            } 
+            res.send(UpdateObjectsArray);
+        }
+    });
+
+});
+
 //Get Personality questions from DB
 router.get("/getQuestions", function(req,res){
     
