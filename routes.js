@@ -18,8 +18,13 @@ router.post("/signup", function(req,res){
     var user = {
         username:req.body.username,
         password:req.body.password,
+        user_type:req.body.user_type,
         ocean_result:{},
-        aptitude_result:{}
+        numerical:null,
+        perceptual:null,
+        verbal:null,
+        abstractApti:null,
+        spatial:null
     };
     var status = {
         status:"",
@@ -58,6 +63,7 @@ router.post("/login", function(req,res){
     var status = {
         status:"",
         username: req.body.username,
+        user_type: "",
         id:""
     };
 
@@ -72,6 +78,7 @@ router.post("/login", function(req,res){
                 res.send(status);
             } else {
                 status.status = "Success";
+                status.user_type = foundEntry.user_type;
                 status.id = String(foundEntry._id);
                 res.send(status);
             }
@@ -139,6 +146,7 @@ router.get("/getPAQuestions", function(req,res){
 
 });
 
+
 //Get VR Aptitude questions from DB
 router.get("/getVRQuestions", function(req,res){
 
@@ -167,6 +175,7 @@ router.get("/getVRQuestions", function(req,res){
     });
 
 });
+
 
 //Get Personality questions from DB
 router.get("/getQuestions", function(req,res){
@@ -241,5 +250,109 @@ router.post("/getOceanResult", function(req,res){
     });
 });
 
+
+//Store NA results in DB
+router.post("/storeNAresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {numerical: req.body.numerical}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
+
+
+//Store PA results in DB
+router.post("/storePAresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {perceptual: req.body.perceptual}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
+
+
+//Store VR results in DB
+router.post("/storeVRresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {verbal: req.body.verbal}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
+
+
+//Store AR results in DB
+router.post("/storeARresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {abstractApti: req.body.abstractApti}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
+
+
+//Store SA results in DB
+router.post("/storeSAresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {spatial: req.body.spatial}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
 
 module.exports = router;
