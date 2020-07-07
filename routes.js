@@ -358,7 +358,6 @@ router.post("/storeSAresult", function(req,res){
 
 //Get NA result from DB
 router.post("/getNAresult", function(req,res){
-    console.log("Inside it");
     var status = {
         status:"",
         username: req.body.username,
@@ -375,12 +374,10 @@ router.post("/getNAresult", function(req,res){
             if(foundEntry.numerical == null){
                 //Means user has not given the test
                 status.status = "Test Not Given";
-                console.log("Inside this");
                 res.send(status);
             } else {
                 //User has given the test
                 status.status = "Success";
-                console.log("Success "+foundEntry.numerical);
                 status.result = foundEntry.numerical;
                 res.send(status);
             }
@@ -404,7 +401,7 @@ router.post("/getPAresult", function(req,res){
             status.status = "Test Not Given";
             res.send(status);
         } else {
-            if(Object.keys(foundEntry.perceptual).length === 0 ){
+            if(foundEntry.perceptual == null){
                 //Means user has not given the test
                 status.status = "Test Not Given";
                 res.send(status);
@@ -434,7 +431,7 @@ router.post("/getVRresult", function(req,res){
             status.status = "Test Not Given";
             res.send(status);
         } else {
-            if(Object.keys(foundEntry.verbal).length === 0 ){
+            if(foundEntry.verbal == null){
                 //Means user has not given the test
                 status.status = "Test Not Given";
                 res.send(status);
@@ -464,7 +461,7 @@ router.post("/getARresult", function(req,res){
             status.status = "Test Not Given";
             res.send(status);
         } else {
-            if(Object.keys(foundEntry.abstractApti).length === 0 ){
+            if(foundEntry.abstractApti == null){
                 //Means user has not given the test
                 status.status = "Test Not Given";
                 res.send(status);
@@ -494,7 +491,7 @@ router.post("/getSAresult", function(req,res){
             status.status = "Test Not Given";
             res.send(status);
         } else {
-            if(Object.keys(foundEntry.spatial).length === 0 ){
+            if(foundEntry.spatial == null){
                 //Means user has not given the test
                 status.status = "Test Not Given";
                 res.send(status);
