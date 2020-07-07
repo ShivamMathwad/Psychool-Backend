@@ -251,7 +251,7 @@ router.post("/getOceanResult", function(req,res){
 });
 
 
-//Store NA results in DB
+//Store NA result in DB
 router.post("/storeNAresult", function(req,res){
     var status = {
         status:"",
@@ -272,7 +272,7 @@ router.post("/storeNAresult", function(req,res){
 });
 
 
-//Store PA results in DB
+//Store PA result in DB
 router.post("/storePAresult", function(req,res){
     var status = {
         status:"",
@@ -293,7 +293,7 @@ router.post("/storePAresult", function(req,res){
 });
 
 
-//Store VR results in DB
+//Store VR result in DB
 router.post("/storeVRresult", function(req,res){
     var status = {
         status:"",
@@ -314,7 +314,7 @@ router.post("/storeVRresult", function(req,res){
 });
 
 
-//Store AR results in DB
+//Store AR result in DB
 router.post("/storeARresult", function(req,res){
     var status = {
         status:"",
@@ -335,7 +335,7 @@ router.post("/storeARresult", function(req,res){
 });
 
 
-//Store SA results in DB
+//Store SA result in DB
 router.post("/storeSAresult", function(req,res){
     var status = {
         status:"",
@@ -351,6 +351,156 @@ router.post("/storeSAresult", function(req,res){
             status.status = "Success";
             status.id = String(updatedEntry._id);
             res.send(status);
+        }
+    });
+});
+
+
+//Get NA result from DB
+router.post("/getNAresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        result: null,
+        id:""
+    };
+
+    User.findOne({username: req.body.username}, function(err,foundEntry){
+        if(err){
+            console.log(err);
+            status.status = "Test Not Given";
+            res.send(status);
+        } else {
+            if(Object.keys(foundEntry.numerical).length === 0 ){
+                //Means user has not given the test
+                status.status = "Test Not Given";
+                res.send(status);
+            } else {
+                //User has given the test
+                status.status = "Success";
+                status.result = foundEntry.numerical;
+                res.send(status);
+            }
+        }
+    });
+});
+
+
+//Get PA result from DB
+router.post("/getPAresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        result: null,
+        id:""
+    };
+
+    User.findOne({username: req.body.username}, function(err,foundEntry){
+        if(err){
+            console.log(err);
+            status.status = "Test Not Given";
+            res.send(status);
+        } else {
+            if(Object.keys(foundEntry.perceptual).length === 0 ){
+                //Means user has not given the test
+                status.status = "Test Not Given";
+                res.send(status);
+            } else {
+                //User has given the test
+                status.status = "Success";
+                status.result = foundEntry.perceptual;
+                res.send(status);
+            }
+        }
+    });
+});
+
+
+//Get VR result from DB
+router.post("/getVRresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        result: null,
+        id:""
+    };
+
+    User.findOne({username: req.body.username}, function(err,foundEntry){
+        if(err){
+            console.log(err);
+            status.status = "Test Not Given";
+            res.send(status);
+        } else {
+            if(Object.keys(foundEntry.verbal).length === 0 ){
+                //Means user has not given the test
+                status.status = "Test Not Given";
+                res.send(status);
+            } else {
+                //User has given the test
+                status.status = "Success";
+                status.result = foundEntry.verbal;
+                res.send(status);
+            }
+        }
+    });
+});
+
+
+//Get AR result from DB
+router.post("/getARresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        result: null,
+        id:""
+    };
+
+    User.findOne({username: req.body.username}, function(err,foundEntry){
+        if(err){
+            console.log(err);
+            status.status = "Test Not Given";
+            res.send(status);
+        } else {
+            if(Object.keys(foundEntry.abstractApti).length === 0 ){
+                //Means user has not given the test
+                status.status = "Test Not Given";
+                res.send(status);
+            } else {
+                //User has given the test
+                status.status = "Success";
+                status.result = foundEntry.abstractApti;
+                res.send(status);
+            }
+        }
+    });
+});
+
+
+//Get SA result from DB
+router.post("/getSAresult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        result: null,
+        id:""
+    };
+
+    User.findOne({username: req.body.username}, function(err,foundEntry){
+        if(err){
+            console.log(err);
+            status.status = "Test Not Given";
+            res.send(status);
+        } else {
+            if(Object.keys(foundEntry.spatial).length === 0 ){
+                //Means user has not given the test
+                status.status = "Test Not Given";
+                res.send(status);
+            } else {
+                //User has given the test
+                status.status = "Success";
+                status.result = foundEntry.spatial;
+                res.send(status);
+            }
         }
     });
 });
