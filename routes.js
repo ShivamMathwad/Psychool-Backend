@@ -358,6 +358,7 @@ router.post("/storeSAresult", function(req,res){
 
 //Get NA result from DB
 router.post("/getNAresult", function(req,res){
+    console.log("Inside it");
     var status = {
         status:"",
         username: req.body.username,
@@ -378,6 +379,7 @@ router.post("/getNAresult", function(req,res){
             } else {
                 //User has given the test
                 status.status = "Success";
+                console.log("Success "+foundEntry.numerical);
                 status.result = foundEntry.numerical;
                 res.send(status);
             }
