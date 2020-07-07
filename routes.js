@@ -372,6 +372,7 @@ router.post("/getNAresult", function(req,res){
             status.status = "Test Not Given";
             res.send(status);
         } else {
+            console.log(foundEntry);
             if(Object.keys(foundEntry.numerical).length === 0 ){
                 //Means user has not given the test
                 status.status = "Test Not Given";
