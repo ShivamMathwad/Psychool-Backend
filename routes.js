@@ -87,6 +87,61 @@ router.post("/login", function(req,res){
 });
 
 
+//
+router.post("/checkTestStatus", function(req,res){
+    var testStatus = {
+        status: "",
+        personality: null,
+        numerical: null,
+        perceptual: null,
+        verbal: null,
+        abstractApti: null,
+        spatial: null
+    };
+
+    User.findOne({username:req.body.username},function(err,foundEntry){
+        if(err){
+            console.log(err);
+            res.send(testStatus);
+        } else {
+            testStatus.status = "Success";
+
+            if(Object.keys(foundEntry.ocean_result).length === 0 ){
+                testStatus.personality = false;
+            } else{
+                testStatus.personality = true;
+            }
+            if(foundEntry.numerical == null){
+                testStatus.numerical = false;
+            } else{
+                testStatus.numerical = true;
+            }
+            if(foundEntry.perceptual == null){
+                testStatus.perceptual = false;
+            } else{
+                testStatus.perceptual = true;
+            }
+            if(foundEntry.verbal == null){
+                testStatus.verbal = false;
+            } else{
+                testStatus.verbal = true;
+            }
+            if(foundEntry.abstractApti == null){
+                testStatus.abstractApti = false;
+            } else{
+                testStatus.abstractApti = true;
+            }
+            if(foundEntry.spatial == null){
+                testStatus.spatial = false;
+            } else{
+                testStatus.spatial = true;
+            }
+            res.send(testStatus);
+        }
+    });
+});
+
+
 //Get NA Aptitude questions from DB
 router.get("/getNAQuestions", function(req,res){
 
