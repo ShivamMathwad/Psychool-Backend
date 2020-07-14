@@ -7,8 +7,7 @@ var app = express();
 //Route Setup
 var routes = require("./routes.js");
 
-mongoose.connect("mongodb+srv://shivammad:shivam25@cluster0-5zsao.mongodb.net/psychool?retryWrites=true&w=majority",
-{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, function(err){
+mongoose.connect(process.env.DATABASEURL,{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, function(err){
     if(err){
         console.log(err);
     } else{
@@ -22,11 +21,6 @@ app.use(methodOverride("_method"));
 //Routes
 app.use(routes);
 
-
-let port = process.env.PORT;
-if(port == null || port == ""){
-    port = 3000;
-}
 app.listen(process.env.PORT, function(){
     console.log("Server has started!");
 });
