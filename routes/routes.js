@@ -2,9 +2,9 @@ var express = require("express");
 var router = express.Router();
 
 //Schema Setup
-var OceanQuestions    = require("./Models/ocean_questions.js");
-var User              = require("./Models/users.js");
-var AptitudeQuestions = require("./Models/apti_questions.js");
+var OceanQuestions    = require("../Models/ocean_questions.js");
+var User              = require("../Models/users.js");
+var AptitudeQuestions = require("../Models/apti_questions.js");
 
 
 //Routes

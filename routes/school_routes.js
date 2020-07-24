@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 
 //Schema Setup
-var User              = require("./Models/users.js");
-var AptitudeQuestions = require("./Models/apti_questions.js");
+var User              = require("../Models/users.js");
+var AptitudeQuestions = require("../Models/apti_questions.js");
 
 
 //Routes
