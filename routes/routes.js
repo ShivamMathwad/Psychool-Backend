@@ -92,7 +92,6 @@ router.post("/changePassword", function(req,res){
     var status = {
         status:"",
         username: req.body.username,
-        user_type: "",
         id:""
     };
 
