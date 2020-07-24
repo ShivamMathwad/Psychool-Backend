@@ -5,9 +5,9 @@ var methodOverride = require("method-override");
 var app = express();
 
 //Route Setup
-var routes = require("./Routes/routes.js");
-var school_routes = require("./Routes/school_routes.js");
-var grad_routes = require("./Routes/grad_routes.js");
+var routes = require("./Routes/routes");
+var school_routes = require("./Routes/school_routes");
+var grad_routes = require("./Routes/grad_routes");
 
 mongoose.connect(process.env.DATABASEURL,{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, function(err){
     if(err){
