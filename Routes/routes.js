@@ -15,22 +15,43 @@ router.get("/", function(req,res){
 
 //Handles signup logic
 router.post("/signup", function(req,res){
-    var user = {
-        username:req.body.username,
-        password:req.body.password,
-        user_type:req.body.user_type,
-        ocean_result:{},
-        numerical:null,
-        perceptual:null,
-        verbal:null,
-        abstractApti:null,
-        spatial:null
+    var user;
+    var school_user = {
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        user_type: req.body.user_type,
+        ocean_result: {},
+        numerical: null,
+        perceptual: null,
+        verbal: null,
+        abstractApti: null,
+        spatial: null
+    };
+    var grad_user = {
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        user_type: req.body.user_type,
+        ocean_result: {},
+        medical: null,
+        management: null,
+        political: null,
+        computer: null,
+        mechanical: null,
+        aerospace: null
     };
     var status = {
-        status:"",
-        username:req.body.username,
-        id:""
+        status: "",
+        username: req.body.username,
+        id: ""
     };
+
+    if(req.body.user_type == "School/High School"){
+        user = school_user;
+    } else {
+        user = grad_user;
+    }
 
     User.findOne({username:req.body.username},function(err,foundEntry){
         if(err){
@@ -64,6 +85,7 @@ router.post("/login", function(req,res){
         status:"",
         username: req.body.username,
         user_type: "",
+        email: "",
         id:""
     };
 
@@ -79,6 +101,7 @@ router.post("/login", function(req,res){
             } else {
                 status.status = "Success";
                 status.user_type = foundEntry.user_type;
+                status.email = foundEntry.email;
                 status.id = String(foundEntry._id);
                 res.send(status);
             }
