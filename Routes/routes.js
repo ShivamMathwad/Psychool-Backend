@@ -5,7 +5,7 @@ var router = express.Router();
 var OceanQuestions    = require("../Models/ocean_questions.js");
 var User              = require("../Models/users.js");
 var AptitudeQuestions = require("../Models/apti_questions.js");
-var email             = require("../email.js");
+var Email             = require("../email.js");
 
 //Routes
 router.get("/", function(req,res){
@@ -65,7 +65,7 @@ router.post("/signup", function(req,res){
                         console.log(err);
                     } else {
                         status.status = "Success";
-                        email.signup_mail(createdUser.email, createdUser.username); //Send signup mail to user
+                        Email.signup_mail(createdUser.email, createdUser.username); //Send signup mail to user
                         status.id = String(createdUser._id);
                         res.send(status);
                     }
@@ -111,6 +111,42 @@ router.post("/login", function(req,res){
 });
 
 
+//Handles forgot password logic
+router.post("/forgot_password", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOne({username:req.body.username, email:req.body.email},function(err,foundEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            if(foundEntry == null){
+                //Means account doesn't exist or one of username or email is invalid
+                status.status = "Invalid details";
+                res.send(status);
+            } else {
+                //Means user exists
+                User.findOneAndUpdate({username: req.body.username}, {password: req.body.securePassword}, function(err,updatedEntry){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        Email.forgot_password_mail(foundEntry.email, foundEntry.username, req.body.password);  //Send forgot_password mail to user
+                    }
+                });
+
+                status.status = "Success";
+                status.id = String(foundEntry._id);
+                res.send(status);
+            }
+        }
+    });
+});
+
+
 //Change user password
 router.post("/changePassword", function(req,res){
     var status = {
@@ -125,7 +161,7 @@ router.post("/changePassword", function(req,res){
             res.send(status);
         } else {
             status.status = "Success";
-            email.password_change_success_mail(updatedEntry.email, updatedEntry.username); //Send mail to user
+            Email.password_change_success_mail(updatedEntry.email, updatedEntry.username); //Send mail to user
             status.id = String(updatedEntry._id);
             res.send(status);
         }
