@@ -65,7 +65,7 @@ router.post("/signup", function(req,res){
                         console.log(err);
                     } else {
                         status.status = "Success";
-                        email.signup_mail();
+                        email.signup_mail(createdUser.email, createdUser.username); //Send signup mail to user
                         status.id = String(createdUser._id);
                         res.send(status);
                     }
@@ -125,6 +125,7 @@ router.post("/changePassword", function(req,res){
             res.send(status);
         } else {
             status.status = "Success";
+            email.password_change_success_mail(updatedEntry.email, updatedEntry.username); //Send mail to user
             status.id = String(updatedEntry._id);
             res.send(status);
         }
