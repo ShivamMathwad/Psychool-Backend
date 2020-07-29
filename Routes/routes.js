@@ -5,7 +5,7 @@ var router = express.Router();
 var OceanQuestions    = require("../Models/ocean_questions.js");
 var User              = require("../Models/users.js");
 var AptitudeQuestions = require("../Models/apti_questions.js");
-
+var email             = require("../email.js");
 
 //Routes
 router.get("/", function(req,res){
@@ -65,6 +65,7 @@ router.post("/signup", function(req,res){
                         console.log(err);
                     } else {
                         status.status = "Success";
+                        email.signup_mail();
                         status.id = String(createdUser._id);
                         res.send(status);
                     }
