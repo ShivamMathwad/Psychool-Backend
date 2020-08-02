@@ -6,6 +6,6 @@ var interestQuestionSchema = new mongoose.Schema({
     type: String 
 });
 
-var InterestQuestions = mongoose.model("interest",oceanQuestionSchema,"interest");
+var InterestQuestions = mongoose.model("interest",interestQuestionSchema,"interest");
 
 module.exports = InterestQuestions;
