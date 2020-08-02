@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema({
     email: String,
     user_type: String,
     ocean_result: Object,
+    raisec_result: Object,
     numerical: Number,
     perceptual: Number,
     verbal: Number,

@@ -3,6 +3,7 @@ var router = express.Router();
 
 //Schema Setup
 var OceanQuestions    = require("../Models/ocean_questions.js");
+var RaisecQuestions    = require("../Models/interest_questions.js");
 var User              = require("../Models/users.js");
 var AptitudeQuestions = require("../Models/apti_questions.js");
 var Email             = require("../email.js");
@@ -22,6 +23,7 @@ router.post("/signup", function(req,res){
         email: req.body.email,
         user_type: req.body.user_type,
         ocean_result: {},
+        raisec_result: {},
         numerical: null,
         perceptual: null,
         verbal: null,
@@ -34,6 +36,7 @@ router.post("/signup", function(req,res){
         email: req.body.email,
         user_type: req.body.user_type,
         ocean_result: {},
+        raisec_result: {},
         medical: null,
         management: null,
         political: null,
@@ -237,6 +240,79 @@ router.post("/getOceanResult", function(req,res){
             } else {
                 //User has given the test
                 res.send(foundEntry.ocean_result);
+            }
+        }
+    });
+});
+
+
+//Get Interest questions from DB
+router.get("/getInterestQuestions", function(req,res){
+    
+    RaisecQuestions.find({}, function(err,allQuestions){
+        if(err){
+            console.log(err);
+        } else {
+           allQuestions.sort((obj1,obj2)=> obj1.id-obj2.id);
+           
+           let UpdateObjectsArray=[];
+           for(let question in allQuestions){
+               let obj = {
+                   id: allQuestions[question].id,
+                   question: allQuestions[question].question,
+                   type: allQuestions[question].type
+               };
+               UpdateObjectsArray.push(obj);
+           }
+           res.send(UpdateObjectsArray);
+        }
+    });
+});
+
+
+//Store RAISEC results in DB
+router.post("/storeRaisecResult", function(req,res){
+    var status = {
+        status:"",
+        username: req.body.username,
+        id:""
+    };
+
+    User.findOneAndUpdate({username: req.body.username}, {raisec_result: req.body.raisec_result}, function(err,updatedEntry){
+        if(err){
+            console.log(err);
+            res.send(status);
+        } else {
+            status.status = "Success";
+            status.id = String(updatedEntry._id);
+            res.send(status);
+        }
+    });
+});
+
+
+//Get Interest results from DB
+router.post("/getRaisecResult", function(req,res){
+    const noTestResult = {
+        r_result: 0,
+        a_result: 0,
+        i_result: 0,
+        s_result: 0,
+        e_result: 0,
+        c_result: 0
+    };    
+
+    User.findOne({username: req.body.username}, function(err,foundEntry){
+        if(err){
+            console.log(err);
+            res.send(noTestResult);
+        } else {
+            if(Object.keys(foundEntry.raisec_result).length === 0 ){
+                //Means user has not given the test
+                res.send(noTestResult);
+            } else {
+                //User has given the test
+                res.send(foundEntry.raisec_result);
             }
         }
     });
