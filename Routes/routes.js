@@ -183,6 +183,7 @@ router.post("/careerRecommendation", function(req,res){
     });
 
     var recommendationList = ["Engineering","Education"];
+    Email.improvementMail(req.body.email,req.body.username);
     res.send(recommendationList);
 });
 
