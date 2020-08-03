@@ -157,7 +157,8 @@ router.post("/getAllScores", function(req,res){
 router.post("/careerRecommendation", function(req,res){
     var dataToSend;
     //var ocean_result = [0.0,0.05,0.0,0.9];
-    var ocean_result = req.body.ocean_result;
+    //var ocean_result = req.body.ocean_result;
+    var ocean_result = [req.body.o_result, req.body.c_result, req.e_result, req.a_result];
     var aptitude_result = [req.body.numerical, req.body.perceptual, req.body.verbal, req.body.abstractApti, req.body.spatial];
 
     // spawn new child process to call the python script
