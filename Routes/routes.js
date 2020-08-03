@@ -22,6 +22,7 @@ router.post("/signup", function(req,res){
         password: req.body.password,
         email: req.body.email,
         user_type: req.body.user_type,
+        recommendation: null,
         ocean_result: {},
         raisec_result: {},
         numerical: null,
@@ -35,6 +36,7 @@ router.post("/signup", function(req,res){
         password: req.body.password,
         email: req.body.email,
         user_type: req.body.user_type,
+        recommendation: null,
         ocean_result: {},
         raisec_result: {},
         medical: null,
@@ -111,6 +113,78 @@ router.post("/login", function(req,res){
             }
         }
     });
+});
+
+
+//Get all Test scores
+router.post("/getAllScores", function(req,res){
+    var user = {
+        o_result: null,
+        c_result: null,
+        e_result: null,
+        a_result: null,
+        n_result: null,
+        numerical: null,
+        perceptual: null,
+        verbal: null,
+        abstractApti: null,
+        spatial: null
+    };
+
+    User.findOne({username: req.body.username},function(err, foundEntry){
+        if(err){
+            console.log(err);
+            res.send(user);
+        } else {
+            user.o_result = foundEntry.ocean_result.o_result;
+            user.c_result = foundEntry.ocean_result.c_result;
+            user.e_result = foundEntry.ocean_result.e_result;
+            user.a_result = foundEntry.ocean_result.a_result;
+            user.n_result = foundEntry.ocean_result.n_result;
+            user.numerical = foundEntry.numerical;
+            user.perceptual = foundEntry.perceptual;
+            user.verbal = foundEntry.verbal;
+            user.abstractApti = foundEntry.abstractApti;
+            user.spatial = foundEntry.spatial;
+            res.send(user);
+        }
+    });
+});
+
+
+//Career Recommendation
+router.post("/careerRecommendation", function(req,res){
+    var dataToSend;
+    //var ocean_result = [0.0,0.05,0.0,0.9];
+    var ocean_result = req.body.ocean_result;
+    var aptitude_result = [req.body.numerical, req.body.perceptual, req.body.verbal, req.body.abstractApti, req.body.spatial];
+
+    // spawn new child process to call the python script
+    const python = spawn('python', ['script.py',ocean_result, aptitude_result]);
+
+    // collect data from script
+    python.stdout.on('data', function (data) {
+        dataToSend = data.toString();
+    });
+    // in close event we are sure that stream from child process is closed
+    python.on('close', (code) => {
+    });
+
+    //dataToSend => Mass&Media,Engineering
+    var recommendationList = dataToSend.split(",");
+    User.findOneAndUpdate({username: req.body.username}, {recommendation: recommendationList}, function(err, updatedEntry){
+        if(err){
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+
+    var result = {
+        recommendation: recommendationList
+    };
+
+    res.send(result);
 });
 
 
@@ -284,7 +358,6 @@ router.post("/storeRaisecResult", function(req,res){
             res.send(status);
         } else {
             status.status = "Success";
-            status.id = String(updatedEntry._id);
             res.send(status);
         }
     });

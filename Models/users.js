@@ -5,6 +5,7 @@ var userSchema = new mongoose.Schema({
     password: String,
     email: String,
     user_type: String,
+    recommendation: Array,
     ocean_result: Object,
     raisec_result: Object,
     numerical: Number,
