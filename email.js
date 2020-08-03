@@ -21,7 +21,7 @@ let mailDetails = {
 function improvementMail(toMail, username){
     mailDetails.to = toMail;
     mailDetails.subject = "Aptitude Improvement Suggestions";
-    mailDetails.html = `Hi ${username},;
+    mailDetails.html = `Hi ${username},
     <br/>I'm CASS.<br/>In case you wish to improve your Aptitude Scores, click on the links for guidance!<br/>
     <br/><b>Numerical Aptitude -</b>
     <br/>Link 1: <a href="https://www.practiceaptitudetests.com/resources/top-15-tips-to-pass-your-aptitude-test/">Click here</a>
@@ -35,7 +35,7 @@ function improvementMail(toMail, username){
     <br/>
     <br/><b>Spatial Aptitude -</b>
     <br/>Link 1: <a href="https://www.practiceaptitudetests.com/spatial-reasoning-tests/">Click here</a>
-    <br/>Link 2:<a href="https://www.archdaily.com/806402/9-everyday-activities-to-increase-your-spatial-intelligence">Click here</a>
+    <br/>Link 2: <a href="https://www.archdaily.com/806402/9-everyday-activities-to-increase-your-spatial-intelligence">Click here</a>
     <br/>Book: <a href="https://www.goodreads.com/shelf/show/spatial-reasoning">Click here</a>
     <br/>
     <br/><b>Verbal Reasoning -</b>
@@ -45,10 +45,10 @@ function improvementMail(toMail, username){
     <br/>
     <br/><b>Abstract Reasoning -</b>
     <br/>Link 1: <a href="https://www.assessmentcentrehq.com/abstract-reasoning-test/">Click here</a>
-    <br/>Link 2:<a href="https://www.psychometricinstitute.com.au/Psychometric-Test-Guide/Abstract-Reasoning-Test-Guide/Improve_your_abstract_reasoning_test_score.html#:~:text=Although%20you%20cannot%20significantly%20improve,to%20quickly%20improve%20your%20performance">Click here</a>
+    <br/>Link 2: <a href="https://www.psychometricinstitute.com.au/Psychometric-Test-Guide/Abstract-Reasoning-Test-Guide/Improve_your_abstract_reasoning_test_score.html#:~:text=Although%20you%20cannot%20significantly%20improve,to%20quickly%20improve%20your%20performance">Click here</a>
     <br/>Book: <a href="https://www.jagranjosh.com/affiliates/best-reasoning-books-for-all-competitive-examinations-1567602499-1">Click here</a>
     <br/>
-    <br/>For further details on different aptitudes, refer the following book-
+    <br/>For further details on different aptitudes, refer the following book -
     <a href="https://static1.squarespace.com/static/57fbabb61b631be17ec6bfc2/t/57fc544de4fcb5f48d6dbea0/1476154479010/The+Aptitude+Handbook+May+1+2014.pdf">Click here</a>
     <br/>
     <br/>Regards,
