@@ -173,7 +173,7 @@ router.post("/careerRecommendation", function(req,res){
     });
 
     //dataToSend => Mass&Media,Engineering
-    var recommendationList = dataToSend.split(",");
+    //var recommendationList = dataToSend.split(",");
     User.findOneAndUpdate({username: req.body.username}, {recommendation: recommendationList}, function(err, updatedEntry){
         if(err){
             console.log(err);
@@ -182,6 +182,7 @@ router.post("/careerRecommendation", function(req,res){
         }
     });
 
+    var recommendationList = ["Engineering","Education"];
     res.send(recommendationList);
 });
 
