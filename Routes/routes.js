@@ -177,12 +177,10 @@ router.post("/careerRecommendation", function(req,res){
     User.findOneAndUpdate({username: req.body.username}, {recommendation: recommendationList}, function(err, updatedEntry){
         if(err){
             console.log(err);
-        } else {
-            console.log("Success");
         }
     });
 
-    var recommendationList = ["Engineering","Education"];
+    var recommendationList = ["Engineering","Education"]; //Dummy output
     Email.improvementMail(req.body.email,req.body.username);
     res.send(recommendationList);
 });
