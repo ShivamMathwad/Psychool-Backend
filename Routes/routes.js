@@ -358,6 +358,7 @@ router.post("/storeRaisecResult", function(req,res){
             res.send(status);
         } else {
             status.status = "Success";
+            console.log("success");
             res.send(status);
         }
     });
