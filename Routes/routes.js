@@ -180,11 +180,7 @@ router.post("/careerRecommendation", function(req,res){
         }
     });
 
-    var result = {
-        recommendation: recommendationList
-    };
-
-    res.send(result);
+    res.send(recommendationList);
 });
 
 
