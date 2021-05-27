@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const {PythonShell} = require('python-shell');
+const path = require('path');
+
 
 //Schema Setup
 var OceanQuestions    = require("../Models/ocean_questions.js");
@@ -158,6 +160,9 @@ router.post("/careerRecommendation", async function(req,res){
     let ocean_result = [req.body.o_result, req.body.c_result, req.body.e_result, req.body.a_result];
     let aptitude_result = [req.body.numerical, req.body.perceptual, req.body.verbal, req.body.abstractApti, req.body.spatial];
 
+    let scriptPath = path.dirname(require.main.filename).toString();
+    scriptPath = scriptPath.substring(0, str.length - 7);
+
     // let options = {
     //     mode: 'text',
     //     pythonPath: '/usr/bin/python3',
@@ -169,7 +174,7 @@ router.post("/careerRecommendation", async function(req,res){
         mode: 'text',
         pythonPath: '/usr/bin/python3',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: '/home/u22856/app',
+        scriptPath: scriptPath,
         args: [ocean_result, aptitude_result]
     };
 
