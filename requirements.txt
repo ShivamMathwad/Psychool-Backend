@@ -1,2 +1,2 @@
-joblib
-pickle
+joblib==1.0.1
+pickle==4.0
