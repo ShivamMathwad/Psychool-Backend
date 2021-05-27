@@ -1,6 +1,5 @@
 import sys
 import joblib
-import pickle
 
 
 ocean_input = sys.argv[1]
