@@ -182,7 +182,7 @@ router.post("/careerRecommendation", async function(req,res){
         if (err) {
             console.log(err);
         } else {
-            console.log(results);
+            console.log("results: ", results);
             let recommendationList = results[0].split(",");
 
             User.findOneAndUpdate({ username: req.body.username }, { recommendation: recommendationList }, function (err, updatedEntry) {
