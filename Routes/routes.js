@@ -1,7 +1,5 @@
 var express = require("express");
-const {spawn} = require('child_process');
 var router = express.Router();
-var delay = require('delay');
 const {PythonShell} = require('python-shell');
 
 //Schema Setup
