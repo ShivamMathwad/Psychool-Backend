@@ -161,7 +161,7 @@ router.post("/careerRecommendation", async function(req,res){
     let aptitude_result = [req.body.numerical, req.body.perceptual, req.body.verbal, req.body.abstractApti, req.body.spatial];
 
     let scriptPath = path.dirname(require.main.filename).toString();
-    scriptPath = scriptPath.substring(0, str.length - 7);
+    scriptPath = scriptPath.substring(0, scriptPath.length - 7);
 
     // let options = {
     //     mode: 'text',
