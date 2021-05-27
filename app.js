@@ -17,7 +17,7 @@ mongoose.connect(process.env.DATABASEURL,{useNewUrlParser: true, useUnifiedTopol
         console.log("Successfully connected to MongoDB");
     }
 }); 
-// mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, function (err) {
+// mongoose.connect('mongodb+srv://shivammad:shivam25@cluster0-5zsao.mongodb.net/psychool?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, function (err) {
 //     if(err){
 //         console.log(err);
 //     } else{
